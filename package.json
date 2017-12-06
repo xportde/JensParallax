@@ -1,0 +1,22 @@
+{
+  "name": "jensparallax",
+  "version": "0.1.0",
+  "description": "tiny Parallax modul",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xportde/JensParallax.git"
+  },
+  "keywords": [
+    "jquery",
+    "parallax",
+    "xport"
+  ],
+  "author": "Tobias Walter, Rico Dang",
+  "bugs": {
+    "url": "https://github.com/xportde/JensParallax/issues"
+  },
+  "homepage": "https://github.com/xportde/JensParallax#readme"
+}
