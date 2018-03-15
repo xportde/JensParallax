@@ -15,9 +15,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * @author     Tobias Walter <tw@xport.de>, Rico Dang <rd@xport.de>
- * @copyright  2017 Tobias Walter, Rico Dang
- * @version    0.1.0 beta
- * @date       15/11/2017
+ * @copyright  2017 - 2018 Tobias Walter, Rico Dang
+ * @version    0.2.0 beta
+ * @date       18/03/2018
  */
 
 (function($)
@@ -25,7 +25,7 @@
 	//{{{ $.fn.JensSwipe
 	$.fn.extend(
 	{
-		JensParallax: function(options)
+		JensParallax(options)
 		{
 			return this.each(function() {
 				new $.JensParallax(this, options);
@@ -47,6 +47,9 @@
 
 	$.JensParallax.prototype =
 	{
+		/**
+		 *
+		 */
 		JENS_STAGE_CLASS: 'jensParallax',
 		IMAGE_CLASS: 'parallaxImage',
 		DEFAULT_OPTS: {
@@ -54,46 +57,44 @@
 		},
 
 		//{{{ init() function
-		init: function()
+		init()
 		{
-			var self = this;
-			self.jens.addClass(self.JENS_STAGE_CLASS);
-			self.prepareParallax();
+			this.jens.addClass(this.JENS_STAGE_CLASS);
+			this.prepareParallax();
 
-			$(document).ready(function() {
-				self.parallax();
+			$(document).ready(() => {
+				this.parallax();
 			});
 
 			$(window).on({
-				scroll: function()
+				scroll: () =>
 				{
-					self.parallax();
+					this.parallax();
 				},
-				load: function()
+				load: () =>
 				{
-					setTimeout(function() { self.parallax(); }, 50);
+					setTimeout(() => this.parallax(), 50);
 				},
-				resize: function()
+				resize: () =>
 				{
-					self.parallax();
+					this.parallax();
 				}
 			});
 		},
 
-		prepareParallax: function()
+		prepareParallax()
 		{
-			var self          = this
-			  , parallaxImage = self.jens.find('.' + self.IMAGE_CLASS);
+			const parallaxImage = this.jens.find(`.${this.IMAGE_CLASS}`);
 
-			self.jens.css({
-				height: self.opts.height
+			this.jens.css({
+				height: this.opts.height
 			});
 
 			if (parallaxImage.width() > parallaxImage.parent().width())
 			{
 				parallaxImage.css({
 					'left': '50%',
-					'margin-left': '-' + (parallaxImage.width() / 2) + 'px'
+					'margin-left': `-${(parallaxImage.width() / 2)}px`
 				});
 			}
 			else
@@ -105,23 +106,21 @@
 			}
 		},
 
-		parallax: function()
+		parallax()
 		{
 			var self = this;
-
-			self.jens.each(function()
+			this.jens.each(function()
 			{
-				$(this).find('.' + self.IMAGE_CLASS).css({
+				$(this).find(`.${self.IMAGE_CLASS}`).css({
 					'position': 'absolute',
-					'bottom': '-' + self.parallaxCalc($(this)) + 'px'
+					'bottom': `-${self.parallaxCalc($(this))}px`
 				});
 			});
 		},
 
-		parallaxCalc: function(elem)
+		parallaxCalc(elem)
 		{
-			var self         = this
-			  , elOffsetTop  = elem.offset().top
+			var elOffsetTop  = elem.offset().top
 			  , elHeight     = elem.height()
 			  , winHeight    = $(window).height()
 			  , winScrollTop = $(window).scrollTop();
@@ -130,7 +129,7 @@
 					&& (elOffsetTop + elHeight) > winScrollTop)
 			{
 				var viewportPC = Math.abs(((elOffsetTop - (winScrollTop + winHeight)) / (elHeight + winHeight)) * 100);
-				return Math.abs((viewportPC / 100) * (elem.find('.' + self.IMAGE_CLASS).height() - elHeight));
+				return Math.abs((viewportPC / 100) * (elem.find('.' + this.IMAGE_CLASS).height() - elHeight));
 			}
 			else
 				return 0;
