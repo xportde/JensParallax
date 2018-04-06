@@ -62,23 +62,12 @@
 			this.jens.addClass(this.JENS_STAGE_CLASS);
 			this.prepareParallax();
 
-			$(document).ready(() => {
-				this.parallax();
-			});
+			$(document).ready(() => this.parallax() );
 
 			$(window).on({
-				scroll: () =>
-				{
-					this.parallax();
-				},
-				load: () =>
-				{
-					setTimeout(() => this.parallax(), 50);
-				},
-				resize: () =>
-				{
-					this.parallax();
-				}
+				scroll: () => this.parallax(),
+				load: () => setTimeout(() => this.parallax(), 50),
+				resize: () => this.parallax()
 			});
 		},
 
